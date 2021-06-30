@@ -1,0 +1,22 @@
+<h3>выберите группу</h3>
+<a href="">3ИП</a>
+<br />
+<a href="">Какая-то группа</a>
+
+
+<br /><br />
+<h3>расписание на сегодня</h3>
+<p>здесь будет расписание всех групп, на сегодня</p>
+<table>
+  {% for schedule in schedules %}
+  <tr>
+    <td>{{schedule.weekday}}</td>
+    <td>{{schedule.group}}</td>
+    <td>{{schedule.teacher}}</td>
+    <td>{{schedule.subject}}</td>
+    <td>{{schedule.classroom}}</td>
+    <td>{{schedule.status}}</td>
+    <td>{{schedule.week}}</td>
+  </tr>
+  {% endfor %}
+</table>

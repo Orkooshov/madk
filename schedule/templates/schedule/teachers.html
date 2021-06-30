@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>Фамилия</th>
+    <th>Имя</th>
+    <th>Отчество</th>
+    <th>Кабинет</th>
+  </tr>
+  {% for teacher in teachers %}
+  <tr>
+    <td>{{ teacher.name }}</td>
+    <td>{{ teacher.surname }}</td>
+    <td>{{ teacher.patronymic }}</td>
+    <td>{{ teacher.classroom }}</td>
+  </tr>
+  {% endfor %}
+</table>
