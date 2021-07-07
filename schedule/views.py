@@ -10,8 +10,8 @@ def subjects(request):
     return render(request, 'schedule/subjects.html', {'subjects': subjects})
 
 def student(request):
-    schedules = Schedule.objects.order_by('teacher')
-    return render(request, 'schedule/student.html', {'schedules': schedules})
+    today_schedule = Schedule.objects.filter(weekday=3).order_by('position')
+    return(render(request, 'schedule/test.html', {'today_schedule': today_schedule}))
 
 def teachers(request):
     teachers = Teacher.objects.order_by('name')

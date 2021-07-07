@@ -11,6 +11,11 @@ class Subject(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Предмет'
+        verbose_name_plural = 'Предметы'
+
 
 class Classroom(models.Model):
     number = models.IntegerField()
@@ -20,17 +25,27 @@ class Classroom(models.Model):
     def __str__(self) -> str:
         return f"{self.building}.{self.floor}.{self.number}"
 
+    class Meta:
+        ordering = ['building', 'floor', 'number']
+        verbose_name = 'Кабинет'
+        verbose_name_plural = 'Кабинеты'
+
 
 class Teacher(models.Model):
+    surname = models.CharField(max_length=50)
     name = models.CharField(max_length=50)
     patronymic = models.CharField(max_length=50)
-    surname = models.CharField(max_length=50)
     classroom = models.ForeignKey(
         Classroom, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self) -> str:
         # classroom_str = f"({self.classroom})" if self.classroom is not None else ''
-        return f"{self.name} {self.patronymic} {self.surname}"
+        return f"{self.surname} {self.name} {self.patronymic}"
+
+    class Meta:
+        ordering = ['surname', 'name', 'patronymic']
+        verbose_name = 'Преподаватель'
+        verbose_name_plural = 'Преподаватели'
 
 
 class Teacher_Subject(models.Model):
@@ -49,12 +64,22 @@ class Group(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Группа'
+        verbose_name_plural = 'Группы'
+
 
 class Weekday(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        ordering = ['pk']
+        verbose_name = 'День недели'
+        verbose_name_plural = 'Дни недели'
 
 
 class ScheduleStatus(models.Model):
@@ -63,6 +88,11 @@ class ScheduleStatus(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        ordering = ['pk']
+        verbose_name = 'Этап обучения'
+        verbose_name_plural = 'Этапы обучения'
+
 
 class Week(models.Model):
     number = models.IntegerField()
@@ -70,12 +100,22 @@ class Week(models.Model):
     def __str__(self) -> str:
         return str(self.number)
 
+    class Meta:
+        ordering = ['number']
+        verbose_name = 'Неделя'
+        verbose_name_plural = 'Недели'
+
 
 class Subgroup(models.Model):
     number = models.IntegerField()
 
     def __str__(self) -> str:
         return f"{self.number}"
+
+    class Meta:
+        ordering = ['number']
+        verbose_name = 'Подгруппа'
+        verbose_name_plural = 'Подгруппы'
 
 
 class Schedule(models.Model):
@@ -94,4 +134,8 @@ class Schedule(models.Model):
         Subgroup, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self) -> str:
-        return f"{self.group}:{self.weekday}"
+        return f"schedule"
+
+    class Meta:
+        verbose_name = 'Расписание'
+        verbose_name_plural = 'Расписания'
