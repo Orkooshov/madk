@@ -1,7 +1,4 @@
 from django.db import models
-from django.db.models.base import Model
-from django.db.models.fields import CharField
-from django.db.models.fields.related import ForeignKey
 
 
 class Subject(models.Model):
@@ -39,7 +36,6 @@ class Teacher(models.Model):
         Classroom, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self) -> str:
-        # classroom_str = f"({self.classroom})" if self.classroom is not None else ''
         return f"{self.surname} {self.name} {self.patronymic}"
 
     class Meta:
@@ -71,7 +67,7 @@ class Group(models.Model):
 
 
 class Weekday(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=16)
 
     def __str__(self) -> str:
         return self.name
@@ -82,56 +78,46 @@ class Weekday(models.Model):
         verbose_name_plural = 'Дни недели'
 
 
-class ScheduleStatus(models.Model):
-    name = models.CharField(max_length=20)
-
-    def __str__(self) -> str:
-        return self.name
-
-    class Meta:
-        ordering = ['pk']
-        verbose_name = 'Этап обучения'
-        verbose_name_plural = 'Этапы обучения'
-
-
-class Week(models.Model):
-    number = models.IntegerField()
-
-    def __str__(self) -> str:
-        return str(self.number)
-
-    class Meta:
-        ordering = ['number']
-        verbose_name = 'Неделя'
-        verbose_name_plural = 'Недели'
-
-
-class Subgroup(models.Model):
-    number = models.IntegerField()
-
-    def __str__(self) -> str:
-        return f"{self.number}"
-
-    class Meta:
-        ordering = ['number']
-        verbose_name = 'Подгруппа'
-        verbose_name_plural = 'Подгруппы'
-
-
 class Schedule(models.Model):
-    weekday = models.ForeignKey(Weekday, on_delete=models.CASCADE)
-    week = models.ForeignKey(
-        Week, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Weekday(models.IntegerChoices):
+        MONDAY = 1, 'Понедельник'
+        TUESDAY = 2, 'Вторник'
+        WEDNESDAY = 3, 'Среда'
+        THURSDAY = 4, 'Четверг'
+        FRIDAY = 5, 'Пятница'
+        SATURDAY = 6, 'Суббота'
+        SUNDAY = 7, 'Воскресенье'
+    weekday = models.IntegerField(choices=Weekday.choices)
+
+    class Week(models.IntegerChoices):
+        ALL = 0, 'Все недели' # default
+        FIRST = 1, 'Первая неделя'
+        SECOND = 2, 'Вторая неделя'
+    week = models.IntegerField(choices=Week.choices, default=Week.ALL)
+
     position = models.IntegerField()
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     classroom = models.ForeignKey(
         Classroom, blank=True, null=True, on_delete=models.CASCADE)
-    status = models.ForeignKey(
-        ScheduleStatus, on_delete=models.CASCADE)
-    subgroup = models.ForeignKey(
-        Subgroup, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Status(models.IntegerChoices):
+        PRACTICE = 0, 'Практика'
+        STUDY = 1, 'Учеба'  # default
+        EXAMS = 2, 'Экзамены'
+    status = models.IntegerField(choices=Status.choices, default=Status.STUDY)
+
+    class Subgroup(models.IntegerChoices):
+        ALL = 0, 'Вся группа'  # default
+        FIRST = 1, 'Первая подгруппа'
+        SECOND = 2, 'Вторая подгруппа'
+    subgroup = models.IntegerField(
+        choices=Subgroup.choices,
+        default=Subgroup.ALL,
+        verbose_name='Подгруппа'
+    )
 
     def __str__(self) -> str:
         return f"schedule"

@@ -9,10 +9,12 @@
 <body>
   <h2>тут будет расписание студентов на сегодня, завтра, и ссылки</h2>
   <h3>расписание</h3>
+  <h4>сегодня {{ weekday }}</h4>
+  {% for group in groups %}
   <table>
     <th>
       <tr>
-        <td>{{ today_schedule.group }}</td>
+        <td>{{ group }}</td>
       </tr>
       <tr>
         <td rowspan="2" class="a">Пара</td>
@@ -24,7 +26,7 @@
         <td colspan="2">Преподаватель</td>
       </tr>
     </th>
-    {% for schedule in today_schedule %}
+    {% for schedule in group.schedule_set.all %}
     <tr>
       <td rowspan="2">{{ schedule.position }}</td>
       <td rowspan="2">Время</td>
@@ -36,5 +38,6 @@
     </tr>
     {% endfor %}
   </table>
+  {% endfor %}
 </body>
 </html>

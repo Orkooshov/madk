@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ group.name }} расписание</title>
+  <style>
+    table{
+      border-collapse: collapse;
+    }
+    table, th, td{
+      border: solid black 1px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Расписание группы {{ group.name }}</h2>
+  {% for schedule in schedules %}
+  <table>
+    <th>
+      <td colspan="3">{{ schedule.key }}</td>
+    </th>
+    <tbody>
+      <tr>
+        <td rowspan="2" class="a">Пара</td>
+        <td rowspan="2" class="a">Время</td>
+        <td>Дисциплина</td>
+        <td>Ауд.</td>
+      </tr>
+      <tr>
+        <td colspan="2">Преподаватель</td>
+      </tr>
+
+      {% for item in schedule %}
+        <tr>
+          <td rowspan="2" class="a">{{ item.position }}</td>
+          <td rowspan="2" class="a">Время</td>
+          <td>{{ item.subject }}</td>
+          <td>{{ item.cabinet }}</td>
+        </tr>
+        <tr>
+          <td colspan="2">{{ item.teacher }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endfor %}
+</body>
+</html>
