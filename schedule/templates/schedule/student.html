@@ -1,43 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h2>тут будет расписание студентов на сегодня, завтра, и ссылки</h2>
-  <h3>расписание</h3>
-  <h4>сегодня {{ weekday }}</h4>
-  {% for group in groups %}
-  <table>
-    <th>
-      <tr>
-        <td>{{ group }}</td>
-      </tr>
-      <tr>
-        <td rowspan="2" class="a">Пара</td>
-        <td rowspan="2" class="a">Время</td>
-        <td>Дисциплина</td>
-        <td>Ауд.</td>
-      </tr>
-      <tr>
-        <td colspan="2">Преподаватель</td>
-      </tr>
-    </th>
-    {% for schedule in group.schedule_set.all %}
+{% extends 'base.html' %}
+{% block title %} Расписание студентов {% endblock %}
+{% block content %}
+<h2>тут будет расписание студентов на сегодня и завтра</h2>
+{% for group in groups %}
+<table class="table table-striped">
+  <thead>
     <tr>
-      <td rowspan="2">{{ schedule.position }}</td>
-      <td rowspan="2">Время</td>
-      <td>{{ schedule.subject }}</td>
-      <td>{{ schedule.classroom }}</td>
+      <th>{{ group }}</th>
     </tr>
     <tr>
-      <td colspan="2">{{ schedule.teacher }}</td>
+      <th rowspan="2">Пара</th>
+      <th rowspan="2">Время</th>
+      <th>Дисциплина</th>
+      <th>Ауд.</th>
     </tr>
-    {% endfor %}
-  </table>
+    <tr>
+      <th colspan="2">Преподаватель</th>
+    </tr>
+  </thead>
+  {% for schedule in group.schedule_set.all %}
+  <tr>
+    <td rowspan="2">{{ schedule.position }}</td>
+    <td rowspan="2">{{ schedule.get_timing }}</td>
+    <td>{{ schedule.subject }}</td>
+    <td>{{ schedule.classroom }}</td>
+  </tr>
+  <tr>
+    <td colspan="2">{{ schedule.teacher }}</td>
+  </tr>
   {% endfor %}
-</body>
-</html>
+</table>
+{% endfor %}
+{% endblock %}

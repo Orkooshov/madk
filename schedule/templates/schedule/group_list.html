@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %} <link rel="stylesheet" href="{% static 'css/list.css'%}"> {% endblock %}
+
+{% block content %}
+<ol>
+  {% for group in object_list %}
+  <li><a href="{{ group.get_absolute_url }}">{{ group }}</a></li>
+  {% endfor %}
+</ol>
+{% endblock %}

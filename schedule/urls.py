@@ -1,12 +1,13 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
+from madk.settings import DEBUG
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('subjects/', views.subjects, name='subjects'),
-    path('teachers/', views.teachers, name='teachers'),
+    path('subjects/', views.SubjectListView.as_view(), name='subject_list'),
+    path('teachers/', views.TeacherListView.as_view(), name='teacher_list'),
+    path('groups/', views.GroupListView.as_view(), name='group_list'),
+    path('groups/<slug:group_slug>/', views.group, name='group_detail'),
     path('student/', views.student, name='student'),
     path('test/', views.test, name='test'),
-    path('student/<str:group_name>', views.group, name='group'),
-    path('add_teacher', views.add_teacher, name='add_teacher')
-]
+] +[path('40<int:exception>/', views.pageNotFound)] if DEBUG else None

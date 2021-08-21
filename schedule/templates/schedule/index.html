@@ -1,21 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h2>
-      Департамент образования и науки города Москвы ГБПОУ МАДК им. А.А.
-      Николаева
-    </h2>
-    <div>
-      <h3>Расписание на сегодня</h3>
-      <a href="{% url 'student' %}">Расписание студентов</a>
-      <br>
-      <a href="{% url 'teachers' %}">Расписание преподавателей</a>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- <div class="row ">
+  <div class="col-sm-6">
+    <div class="card h-100">
+      <div class="card-body h-100">
+        <h5 class="card-title">Расписание студентов</h5>
+        <p class="card-text">Вам сюда, если вы ученик, а не учитель =_=</p>
+        <a href="{% url 'student' %}" class="btn btn-primary">Открыть</a>
+      </div>
     </div>
-  </body>
-</html>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Расписание учителей</h5>
+        <p class="card-text">Сюда, если преподаете скучные (или нет) предметы студентам, которые вообще не хотят ничего делать )=</p>
+        <a href="#" class="btn btn-primary">Открыть</a>
+      </div>
+    </div>
+  </div>
+</div> -->
+<h2 style="text-align: center;">Выберите расписание:</h2>
+<div class="container container-md">
+  <div class="row">
+<div class="card col-sm" style="width: 18rem;">
+  <img class="card-img-top" alt="image" style="height: 220px; width: 100%; display: block;" src="{% static 'shkolnik.jpg' %}" data-holder-rendered="true">
+  <div class="card-body">
+    <h5 class="card-title">Расписание студентов</h5>
+    <p class="card-text">Вам сюда, если вы ученик, а не учитель =_=</p>
+    <a href="{% url 'student' %}" class="btn btn-primary">Открыть</a>
+  </div>
+</div>
+<div class="card col-sm" style="width: 18rem;">
+  <img class="card-img-top" alt="image" style="height: 220px; width: 100%; display: block;" src="{% static 'uchitel.webp' %}" data-holder-rendered="true">
+  <div class="card-body">
+    <h5 class="card-title">Расписание преподавателей</h5>
+    <p class="card-text">Сюда, если преподаете скучные (или нет) предметы студентам, которые вообще не хотят ничего делать )=</p>
+    <a href="#" class="btn btn-primary">Открыть</a>
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}

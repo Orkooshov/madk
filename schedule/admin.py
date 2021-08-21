@@ -3,8 +3,9 @@ from .models import *
 
 
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ('name', 'curator')
+    list_display = ('slug', 'name', 'curator')
     list_editable = ('curator', )
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class SubjectAdmin(admin.ModelAdmin):
@@ -12,20 +13,22 @@ class SubjectAdmin(admin.ModelAdmin):
     list_editable = ('code', )
 
 
+class TeacherAdmin(admin.ModelAdmin):
+    list_display = ('slug', 'surname', 'name', 'patronymic', 'classroom')
+    list_editable = ('classroom', )
+    search_fields = ('surname', 'name', 'patronymic')
+    prepopulated_fields = {'slug': ('surname',)}
+
+
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'weekday', 'week', 'position', 'group',
-                    'subject', 'teacher', 'classroom', 'status', 'subgroup')
-    list_editable = ('subject', 'teacher', 'classroom', 'status', 'subgroup')
-
-
-class WeekdayAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name')
+    list_display = ('group', 'weekday', 'position', 'week',
+                    'subgroup', 'subject', 'teacher', 'classroom', 'status')
+    list_filter = ('group', 'weekday', 'week', 'subject', 'teacher', 'status')
+    list_editable = ('status',)
 
 
 admin.site.register(Subject, SubjectAdmin)
-admin.site.register(Teacher_Subject)
 admin.site.register(Group, GroupAdmin)
-admin.site.register(Weekday, WeekdayAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
-admin.site.register(Teacher)
+admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Classroom)

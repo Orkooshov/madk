@@ -1,13 +1,40 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Страница не найдена</title>
-</head>
-<body>
-  <h2>{{ header }}</h2>
-  {{ text }}
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+    <title>Страница не найдена</title>
+    <style>
+      body {
+        background-image: url("{% static 'homer.gif' %}");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+      }
+      .content{
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        width: 400px;
+        height: 100px;
+        color: white;
+        display: block;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <h2>Страница не найдена</h2>
+      <a href="{% url 'index' %}" class="btn btn-primary" style="display: block; margin: 4px;">Перейти на главную</a>
+    </div>
+  </body>
 </html>
