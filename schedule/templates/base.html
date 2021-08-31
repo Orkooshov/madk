@@ -12,6 +12,8 @@
       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extra_css %}{% endblock %}
     <title>{% block title %} Расписание {% endblock %}</title>
   </head>
@@ -34,7 +36,10 @@
           <img class="logo" src="{% static 'schedule/logo.jpg' %}" alt="logo" style="max-height: 50px;"/>
           <span class="fs-4">Расписание</span>
         </a>
-        <span class="text-muted">{% block weekday %} {{weekday}} {% endblock %}</span>
+        <div style="display: flex;flex-direction: column;">
+          <span class="text-muted" style="align-self: flex-end;">{% block weekday %} {{weekday_today}} {% endblock %}</span>
+          <span class="text-muted">{% block week %} {{week.label}} {% endblock %}</span>
+        </div>
         <!-- <ul class="nav nav-pills">
           <li class="nav-item">
             <a href="{% url 'index' %}" class="nav-link active" aria-current="page">Главная</a>
@@ -44,13 +49,31 @@
         </ul> -->
       </header>
     </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'index' %}">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'group_list' %}">Список групп</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'teacher_list' %}">Список учителей</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/404">Ошибка 404</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     {% endblock %} 
     {% block content %}{% endblock %}
     {% block footer %}
     <div class="container">
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-4 d-flex align-items-center">
-          <span class="text-muted">© 2021 Оркошов Нурмухаммед 4ИП</span>
+          <span class="text-muted">© 2021 Оркошов Н. 4ИП</span>
         </div>
       </footer>
     </div>

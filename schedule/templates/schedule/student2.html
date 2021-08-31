@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load schedule_tags %}
 {% load static %}
 {% block title %} Расписание студентов {% endblock %}
 {% block content %}
@@ -34,43 +35,19 @@
           {{ schedule.get_weekday_display }}
         </th>
         {% endif %}
-
+        {% with schedule|classname as modelclass %}
+        {% if modelclass == 'list' %}
+            <td>hello</td>
+        {% endif %}
+        {% endwith %}
         <td rowspan="2">{{ schedule.lesson }}</td>
         <td rowspan="2">{{ schedule.get_timing }}</td>
-        {% if schedule.subgroup == subgroup.SECOND %}
-        <td class="td-empty td-empty-subject td-empty-1 td-empty-subject-1"></td>
-        {% endif %}
-        <td colspan="
-        {% if schedule.subgroup == subgroup.FIRST %}
-        1
-        {% else %}
-        2
-        {% endif %}
-        ">{{ schedule.subject }}</td>
-        {% if schedule.subgroup == subgroup.FIRST %}
-        <td class="td-empty td-empty-subject td-empty-2 td-empty-subject-2"></td>
-        {% endif %}
+        <td colspan="2">{{ schedule.subject }}</td>
       </tr>
-      {% if schedule.subgroup != subgroup.ALL %}
-      <tr class="contains-td-empty contains-td-empty-2">
-      {% else %}
       <tr>
-      {% endif %}
-        {% if schedule.subgroup == subgroup.SECOND %}
-        <td class="td-empty td-empty-1 td-empty-teacher td-empty-teacher-1"></td>
-        {% endif %}
-        <td colspan="
-        {% if schedule.subgroup == subgroup.FIRST %}
-        1
-        {% else %}
-        2
-        {% endif %}
-        ">
+        <td colspan="2">
           {{ schedule.teacher.get_short_name }} | {{ schedule.classroom }}
         </td>
-        {% if schedule.subgroup == subgroup.FIRST %}
-        <td class="td-empty td-empty-teacher td-empty-2 td-empty-teacher-2"></td>
-        {% endif %}
       </tr>
       {% empty %}
       <tr>

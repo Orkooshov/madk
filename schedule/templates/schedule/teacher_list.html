@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <table class="table table-hover table-sm">
-  <thead style="background-color:#ec725f;">
+  <thead style="background-color:#8fb9f2;">
   <tr>
     <th>#</th>
     <th>Фамилия</th>
@@ -11,13 +11,13 @@
   </tr>
 </thead>
   {% for teacher in teachers %}
-  <tr>
-    <td>{{ forloop.counter }}</td>
-    <td>{{ teacher.name }}</td>
-    <td>{{ teacher.surname }}</td>
-    <td>{{ teacher.patronymic }}</td>
-    <td>{{ teacher.classroom }}</td>
-  </tr>
+  <tr onclick="window.location='{{ teacher.get_absolute_url }}'">
+      <td>{{ forloop.counter }}</td>
+      <td>{{ teacher.surname }}</td>
+      <td>{{ teacher.name }}</td>
+      <td>{{ teacher.patronymic }}</td>
+      <td>{{ teacher.classroom }}</td>
+    </tr>
   {% endfor %}
 </table>
 {% endblock %}

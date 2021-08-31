@@ -1,0 +1,16 @@
+table{
+    border-collapse: collapse;
+}
+.table-schedule{
+    /* text-align: center; */
+}
+.table-schedule th, .table-schedule tr, .table-schedule td{
+    border: 1px solid black;
+}
+.table-schedule th{
+    background-color: #9999ff;
+}
+
+/* .table-schedule tbody tr:nth-child(4n+1), .table-schedule tbody tr:nth-child(4n+2){
+    background-color: #ddd;
+} */

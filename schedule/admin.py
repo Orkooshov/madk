@@ -21,10 +21,10 @@ class TeacherAdmin(admin.ModelAdmin):
 
 
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('group', 'weekday', 'position', 'week',
-                    'subgroup', 'subject', 'teacher', 'classroom', 'status')
-    list_filter = ('group', 'weekday', 'week', 'subject', 'teacher', 'status')
-    list_editable = ('status',)
+    list_display = ('group', 'weekday', 'lesson', 'week',
+                    'subgroup', 'subject', 'teacher', 'classroom', 'is_active')
+    list_filter = 'group', 'weekday', 'week', 'subject', 'teacher', 'is_active'
+    list_editable = 'subject', 'teacher', 'classroom', 'is_active'
 
 
 admin.site.register(Subject, SubjectAdmin)

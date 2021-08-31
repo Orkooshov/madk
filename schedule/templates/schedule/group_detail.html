@@ -1,4 +1,33 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {% block content %}
 <p>Вы выбрали группу: {{ group }}</p>
+<table class="table-schedule">
+  <thead>
+    <tr>
+      <th colspan="4">{{ group }}</th>
+    </tr>
+    <tr>
+      <th rowspan="2">Пара</th>
+      <th rowspan="2">Время</th>
+      <th>Дисциплина</th>
+      <th>Ауд.</th>
+    </tr>
+    <tr>
+      <th colspan="2">Преподаватель</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for schedule in group.schedule_set.all %}
+    <tr>
+      <td rowspan="2">{{ schedule.position }}</td>
+      <td rowspan="2">{{ schedule.get_timing }}</td>
+      <td>{{ schedule.subject }}</td>
+      <td>{{ schedule.classroom }}</td>
+    </tr>
+    <tr>
+      <td colspan="2">{{ schedule.teacher }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}
